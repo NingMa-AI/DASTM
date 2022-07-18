@@ -32,8 +32,8 @@ class NTU_RGBD_Dataset(data.Dataset):
         self.target_transform = target_transform
 
 
-        if gl.dataset == 'ntu120_30':
-            path="********************************to be specified********************************"
+        if gl.dataset == 'ntu-T':
+            print(path="********************************to be specified by you********************************")
             segment = 30
     
 
