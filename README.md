@@ -8,7 +8,7 @@ tqdm=4.54.1
 pynvml=8.0.4
 
 # Datasets
-The used datasets or thieir subsets can be found [here](https://drive.google.com/drive/folders/1lowLKFjUvVQPsnJzSQTGMSNZeaWy5JnP).
+The used datasets or their subsets can be found [here](https://drive.google.com/drive/folders/1lowLKFjUvVQPsnJzSQTGMSNZeaWy5JnP).
 
 # Run
 
