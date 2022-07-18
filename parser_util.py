@@ -8,7 +8,7 @@ def get_parser():
     parser.add_argument('-root', '--dataset',
                         type=str,
                         help='type of dataset',
-                        default='ntu120_30')
+                        default='ntu-T', choices=["ntu-S","ntu-T","kinetics"])
 
     parser.add_argument('-mode', '--mode',
                         type=str,
@@ -92,23 +92,23 @@ def get_parser():
 
     parser.add_argument('-its', '--train_iterations',
                         type=int,
-                        help='number of episodes per epoch, default=100',
+                        help='number of episodes per epoch, default=1000',
                         default=1000)
     parser.add_argument('-cTr', '--classes_per_it_tr',
                         type=int,
-                        help='number of random classes per episode for training, default=60',
+                        help='number of random classes per episode for training, default=5',
                         default=5)
     parser.add_argument('-nsTr', '--num_support_tr',
                         type=int,
-                        help='number of samples per class to use as support for training, default=5',
+                        help='number of samples per class to use as support for training, default=1',
                         default=1)
     parser.add_argument('-nqTr', '--num_query_tr',
                         type=int,
-                        help='number of samples per class to use as query for training, default=5',
+                        help='number of samples per class to use as query for training, default=10',
                         default=10)
     parser.add_argument('-test_its', '--test_iterations',
                         type=int,
-                        help='number of episodes per epoch, default=100',
+                        help='number of episodes per epoch, default=500',
                         default=500)
     parser.add_argument('-cVa', '--classes_per_it_val',
                         type=int,
@@ -116,11 +116,11 @@ def get_parser():
                         default=5)
     parser.add_argument('-nsVa', '--num_support_val',
                         type=int,
-                        help='number of samples per class to use as support for validation, default=5',
+                        help='number of samples per class to use as support for validation, default=1',
                         default=1)
     parser.add_argument('-nqVa', '--num_query_val',
                         type=int,
-                        help='number of samples per class to use as query for validation, default=15',
+                        help='number of samples per class to use as query for validation, default=10',
                         default=10)
 
     parser.add_argument('-seed', '--manual_seed',
@@ -134,6 +134,6 @@ def get_parser():
 
     parser.add_argument('--SA',
                         type=int,
-                        help='input for the manual seeds initializations',
+                        help='attention',
                         default=0)
     return parser
