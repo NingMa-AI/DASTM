@@ -12,12 +12,12 @@ Due to the oversize dataset（ beyond maximum limitation 100M, please download t
 
 # run
 
-run train.py with full model(DASTM (full), 5-way-1-shot, STGCN, on NTU RGB+D 120). 
-python train.py --SA 1 --reg 0.1
+## run train.py with full model(DASTM (full), 5-way-1-shot, STGCN, on NTU RGB+D 120). 
+    python train.py --SA 1 --reg 0.1
 
-run train.py with default parameters(DASTM w/ RankMax, 5-way-1-shot, STGCN, on NTU RGB+D 120). 
-python train.py --SA 0 --reg 0.1
+## run train.py with default parameters(DASTM w/ RankMax, 5-way-1-shot, STGCN, on NTU RGB+D 120). 
+    python train.py --SA 0 --reg 0.1
 
-run train.py with spatial activation(DASTM w/ SA, 5-way-1-shot, STGCN, on NTU RGB+D 120). 
-python train.py --SA 1 --reg 0
+## run train.py with spatial activation(DASTM w/ SA, 5-way-1-shot, STGCN, on NTU RGB+D 120). 
+    python train.py --SA 1 --reg 0
 
