@@ -8,7 +8,7 @@ tqdm=4.54.1
 pynvml=8.0.4
 
 # Datasets
-Due to the oversize dataset（ beyond maximum limitation 100M, please download the public NTU RGB+D 120 dataset or use our subset ([here](https://drive.google.com/drive/folders/1lowLKFjUvVQPsnJzSQTGMSNZeaWy5JnP).
+Due to the oversize dataset（ beyond maximum limitation 100M, please download the public NTU RGB+D 120 dataset or use our subset ([here](https://drive.google.com/drive/folders/1lowLKFjUvVQPsnJzSQTGMSNZeaWy5JnP)).
 
 # Run
 
