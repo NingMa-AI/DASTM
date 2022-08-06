@@ -36,7 +36,7 @@ class CrossAttention(nn.Module):
         attention_probs_dropout_prob = 0.2
         self.attn_dropout = nn.Dropout(attention_probs_dropout_prob)
 
-        # 做完self-attention 做一个前馈全连接 LayerNorm 输出
+        # 
         self.dense = nn.Linear(hidden_size, hidden_size)
         self.LayerNorm = LayerNorm(hidden_size, eps=1e-12)
         self.out_dropout = nn.Dropout(hidden_dropout_prob)
