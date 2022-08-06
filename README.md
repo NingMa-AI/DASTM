@@ -3,8 +3,11 @@ The official implementation of ECCV22 paper "Learning Spatial-Preserved Skeleton
 
 # Environment
 pytorch=1.7
+
 python=3.8.10
+
 tqdm=4.54.1
+
 pynvml=8.0.4
 
 # Datasets
