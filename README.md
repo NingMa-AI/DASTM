@@ -15,13 +15,14 @@ The used datasets or their subsets can be found [here](https://drive.google.com/
 
 # Run
 
-## Run train.py with full model(DASTM (full), 5-way-1-shot, STGCN, on NTU RGB+D 120). 
+1. Run train.py with full model(DASTM (full), 5-way-1-shot, STGCN, on NTU RGB+D 120). 
     python train.py --SA 1 --reg 0.1
 
-## Run train.py with default parameters(DASTM w/ RankMax, 5-way-1-shot, STGCN, on NTU RGB+D 120). 
+2. Run train.py with default parameters(DASTM w/ RankMax, 5-way-1-shot, STGCN, on NTU RGB+D 120). 
     python train.py --SA 0 --reg 0.1
 
-## Run train.py with spatial activation(DASTM w/ SA, 5-way-1-shot, STGCN, on NTU RGB+D 120). 
+3. Run train.py with spatial activation(DASTM w/ SA, 5-way-1-shot, STGCN, on NTU RGB+D 120). 
     python train.py --SA 1 --reg 0
 
 ## The other detailed usages are coming soon. Tue to the limited time, the code base is still being refined.
+
