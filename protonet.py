@@ -31,8 +31,6 @@ class ProtoNet(nn.Module):
             st_graph = None
             node = 0
 
-
-
         self.model = ST_GCN_18(
             in_channels=3,
             num_class=60,
@@ -77,7 +75,6 @@ class ProtoNet(nn.Module):
         if dtw > 0:
             dist, reg_loss = self.dtw_loss(zq, z_proto)
         else:
-            #zq, z_proto = F.avg_pool2d(zq, zq.size()[2:]).view(n_class * n_query, c), F.avg_pool2d(z_proto, z_proto.size()[2:]).view(n_class, c)
             zq = zq.view(n_class * n_query, -1)
             z_proto = z_proto.view(n_class, -1)
             dist = euclidean_dist(zq, z_proto)
@@ -163,7 +160,6 @@ class ProtoNet(nn.Module):
 
         loss = torch.tensor(0).float().to(gl.device)
 
-
         for i in range(x.size()[0]):
 
             transpose_X = x[i]
@@ -174,24 +170,9 @@ class ProtoNet(nn.Module):
             method_loss = -torch.mean(list_svd[:min(softmax_tgt.shape[0], softmax_tgt.shape[1])])
             loss += method_loss
 
-
         return loss / x.size()[0]
 
    
-      
-    def idm_reg(self, x):
-        n, t, c = x.size()
-        reg_loss = torch.tensor(0).float().to(gl.device)
-        thred = 5
-        margin = 2
-        weight, inverse_weight = self.get_W(x, thred)
-        for i in range(n):
-            dist = euclidean_dist(x[i, :, :], x[i, :, :]) # t * t
-            inverse_dist = torch.max(torch.zeros(t, t).to(gl.device), margin - dist).to(gl.device)
-            reg_loss += (inverse_dist * inverse_weight + dist * weight).sum()
-
-        return reg_loss / n
-
     def forward(self, x):
         x = self.model(x)
 

@@ -29,8 +29,6 @@ def init_seed(opt):
 
 
 def init_dataset(opt, data_list, mode):
-    # print('not extract frame')
-    # opt.extract_frame = 0
     debug = False
     dataset = NTU_RGBD_Dataset(mode=mode, data_list=data_list, debug=debug, extract_frame=opt.extract_frame)
     n_classes = len(np.unique(dataset.label))
@@ -78,7 +76,6 @@ def init_optim(opt, model):
     '''
     Initialize optimizer
     '''
-
     # optimizer = torch.optim.SGD(model.parameters(), lr=opt.learning_rate, momentum=0.9, weight_decay=5e-4, nesterov=True)
     optimizer = torch.optim.Adam(params=model.parameters(), lr=opt.learning_rate, weight_decay=5e-4)
 
@@ -100,35 +97,6 @@ def save_list_to_file(path, thelist):
     with open(path, 'w') as f:
         for item in thelist:
             f.write("%s\n" % item)
-
-def cosine(x, str):
-
-    if str == 'not_encoder':
-        t_path = os.path.join(gl.experiment_root, 'origin_t')
-        n, c, t, v, m = x.size()
-        x = x.mean(4)
-    else :
-        t_path = os.path.join(gl.experiment_root, 't')
-        n, c, t, v = x.size()
-
-    for i in range(t - 1):
-        if not os.path.exists(t_path):
-            os.mkdir(t_path)
-        f_path = os.path.join(t_path, '{}_{}.txt'.format(i, i + 1))
-        t1, t2 = torch.transpose(x[0, :, i, :], 1, 0), torch.transpose(x[0, :, i + 1, :], 1, 0)
-        t1 = t1 / (t1.norm(dim=1, keepdim=True) + 1e-8)
-        t2 = t2 / (t2.norm(dim=1, keepdim=True) + 1e-8)
-        cos = torch.mm(t1, torch.transpose(t2, 1, 0))
-        # print(cos)
-        np.savetxt(f_path, cos.cpu().detach().numpy(), fmt='%.2f')
-        # print('--------------------')
-    t1, t2 = torch.transpose(x[0, :, 0, :], 1, 0), torch.transpose(x[0, :, t - 1, :], 1, 0)
-    t1 = t1 / (t1.norm(dim=1, keepdim=True) + 1e-8)
-    t2 = t2 / (t2.norm(dim=1, keepdim=True) + 1e-8)
-    cos = torch.mm(t1, torch.transpose(t2, 1, 0))
-    # print(cos)
-    f_path = os.path.join(t_path, '{}_{}.txt'.format(0, t - 1))
-    np.savetxt(f_path, cos.cpu().detach().numpy(), fmt='%.2f')
 
 
 def train(opt, tr_dataloader, model, optim, lr_scheduler, val_dataloader=None, test_dataloader=None):
@@ -255,8 +223,6 @@ def train(opt, tr_dataloader, model, optim, lr_scheduler, val_dataloader=None, t
             break
     torch.save(model.state_dict(), last_model_path)
 
-
-
     return best_state, best_acc
 
 
@@ -271,7 +237,7 @@ def test(opt, test_dataloader, model):
     n_class_val, n_query_val = opt.classes_per_it_val, opt.num_query_val
 
     for epoch in range(10):
-        # print('=== Epoch: {} ==='.format(epoch))
+        print('=== Epoch: {} ==='.format(epoch))
         model.eval()
         gl.epoch = epoch
         test_iter = iter(test_dataloader)
@@ -293,25 +259,6 @@ def test(opt, test_dataloader, model):
     return avg_acc
 
 
-def eval(opt):
-    '''
-    Initialize everything and train
-    '''
-    options = get_parser().parse_args()
-
-    if torch.cuda.is_available() and not options.cuda:
-        print("WARNING: You have a CUDA device, so you should probably run with --cuda")
-
-    init_seed(options)
-    test_dataloader = init_dataset(options)[-1]
-    model = init_protonet(options)
-    model_path = os.path.join(opt.experiment_root, 'best_model.pth')
-    model.load_state_dict(torch.load(model_path))
-
-    test(opt=options,
-         test_dataloader=test_dataloader,
-         model=model)
-
 def main():
     '''
     Initialize everything and train
@@ -328,7 +275,6 @@ def main():
 
     device = 'cuda:{}'.format(options.device) if torch.cuda.is_available() and options.cuda else 'cpu'
     gl.device = device
-    # print("device",device)
 
     gl.gamma = options.gamma
     options.experiment_root = "../log/"+options.experiment_root
@@ -368,10 +314,6 @@ def main():
                     optim=optim,
                     lr_scheduler=lr_scheduler)
         best_state, best_acc = res
-        # print('Testing with last model..')
-        # test(opt=options,
-        #      test_dataloader=test_dataloader,
-        #      model=model)
 
         model.load_state_dict(best_state)
         model_path = os.path.join(options.experiment_root, 'best_model.pth')
@@ -383,12 +325,8 @@ def main():
     elif options.mode == 'test':
         print('Testing with best model..')
         test(opt=options,
-             test_dataloader=
-             
-             
-             test_dataloader,
+             test_dataloader=test_dataloader,
              model=model)
-
 
 if __name__ == '__main__':
     main()
