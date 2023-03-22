@@ -126,7 +126,7 @@ def get_parser():
     parser.add_argument('-seed', '--manual_seed',
                         type=int,
                         help='input for the manual seeds initializations',
-                        default=7)
+                        default=2022)
 
     parser.add_argument('--cuda',
                         action='store_true',
