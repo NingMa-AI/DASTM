@@ -146,7 +146,7 @@ class ProtoNet(nn.Module):
 
         x = x.unsqueeze(1).expand(n, m, t, c).reshape(n * m, t, c)
         y = y.unsqueeze(0).expand(n, m, t, c).reshape(n * m, t, c)
-        sdtw = SoftDTW(gamma=gl.gamma, normalize=False, attention=self.attention_x, attention_y=self.attention_y)
+        sdtw = SoftDTW(gamma=gl.gamma, normalize=True, attention=self.attention_x, attention_y=self.attention_y)
         loss = sdtw(x, y)
 
         return loss.view(n, m)
